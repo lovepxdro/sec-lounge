@@ -18,3 +18,4 @@ CATEGORY_SAVE_AS = 'category/{slug}/index.html'
 DISPLAY_CATEGORIES_ON_MENU = True
 DISPLAY_PAGES_ON_MENU = True
 DEFAULT_PAGINATION = 10
+THEME = 'themes/sec-lounge'
