@@ -1,35 +1,20 @@
-AUTHOR = 'lovepxdro'
+AUTHOR = 'Pedro'
 SITENAME = 'sec-lounge'
-SITEURL = ""
+SITEURL = ''
 
-PATH = "content"
+PATH = 'content'
+TIMEZONE = 'America/Recife'
+DEFAULT_LANG = 'pt-br'
 
-TIMEZONE = 'Europe/Rome'
+# URLs amigáveis
+ARTICLE_URL = '{category}/{slug}/'
+ARTICLE_SAVE_AS = '{category}/{slug}/index.html'
+PAGE_URL = '{slug}/'
+PAGE_SAVE_AS = '{slug}/index.html'
+CATEGORY_URL = 'category/{slug}/'
+CATEGORY_SAVE_AS = 'category/{slug}/index.html'
 
-DEFAULT_LANG = 'pt'
-
-# Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
-CATEGORY_FEED_ATOM = None
-TRANSLATION_FEED_ATOM = None
-AUTHOR_FEED_ATOM = None
-AUTHOR_FEED_RSS = None
-
-# Blogroll
-LINKS = [
-    ("Pelican", "https://getpelican.com/"),
-    ("Python.org", "https://www.python.org/"),
-    ("Jinja2", "https://palletsprojects.com/p/jinja/"),
-    ("You can modify those links in your config file", "#"),
-]
-
-# Social widget
-SOCIAL = [
-    ("You can add links in your config file", "#"),
-    ("Another social link", "#"),
-]
-
-DEFAULT_PAGINATION = False
-
-# Uncomment following line if you want document-relative URLs when developing
-# RELATIVE_URLS = True
+# Exibição e Paginação
+DISPLAY_CATEGORIES_ON_MENU = True
+DISPLAY_PAGES_ON_MENU = True
+DEFAULT_PAGINATION = 10
