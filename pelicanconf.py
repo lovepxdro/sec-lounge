@@ -7,6 +7,11 @@ TIMEZONE = "America/Recife"
 DEFAULT_LANG = "pt-br"
 LOAD_CONTENT_CACHE = False
 
+STATIC_PATHS = ['images']
+EXTRA_PATH_METADATA = {
+    'images/favicon.svg': {'path': 'favicon.svg'}
+}
+
 # URLs amigáveis
 ARTICLE_URL = "{category}/{slug}/"
 ARTICLE_SAVE_AS = "{category}/{slug}/index.html"
