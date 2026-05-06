@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Categoria: {{ category }} - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+  <h2>Categoria: {{ category }}</h2>
+  {% for article in articles %}
+    <article>
+      <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+      <p><time>{{ article.locale_date }}</time></p>
+    </article>
+  {% endfor %}
+{% endblock %}

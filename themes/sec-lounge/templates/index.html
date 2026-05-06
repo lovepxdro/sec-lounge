@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Últimos Posts</h2>
+  {% for article in articles %}
+    <article>
+      <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+      <p><time>{{ article.locale_date }}</time> | [{{ article.category }}]</p>
+    </article>
+  {% endfor %}
+{% endblock %}
