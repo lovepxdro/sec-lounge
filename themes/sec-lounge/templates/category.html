@@ -3,11 +3,17 @@
 {% block title %}Categoria: {{ category }} - {{ SITENAME }}{% endblock %}
 
 {% block content %}
-  <h2>Categoria: {{ category }}</h2>
+  <div class="section-title">> CATEGORIA: {{ category | upper }} <</div>
+  
   {% for article in articles %}
-    <article>
+    <article class="card">
       <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
-      <p><time>{{ article.locale_date }}</time></p>
+      <div class="meta">
+        {{ article.locale_date }} | <span>#{{ article.category }}</span>
+      </div>
+      <div class="summary">
+        {{ article.summary | striptags | truncate(150) }}
+      </div>
     </article>
   {% endfor %}
 {% endblock %}

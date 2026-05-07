@@ -11,13 +11,22 @@
   <header>
     <h1><a href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
     <nav>
-      <a href="{{ SITEURL }}/category/writeups/">Writeups</a>
-      <a href="{{ SITEURL }}/category/experimentos/">Experimentos</a>
-      <a href="{{ SITEURL }}/sobre/">Sobre</a>
+      <a href="{{ SITEURL }}/">[ >_ HOME ]</a> |
+      <a href="{{ SITEURL }}/category/writeups/">[ WRITEUPS ]</a> |
+      <a href="{{ SITEURL }}/category/experimentos/">[ EXPERIMENTOS ]</a> |
+      <a href="{{ SITEURL }}/sobre/">[ SOBRE ]</a> |
+      <a href="https://github.com/lovepxdro/sec-lounge" target="_blank">[ REPOSITÓRIO ]</a>
     </nav>
   </header>
   <main>
     {% block content %}{% endblock %}
   </main>
+  <footer>
+    <div class="prompt">[sec-lounge@term:~]$</div>
+    <div class="links">
+      <a href="{{ SITEURL }}/sobre/">CONTATO</a> | <a href="https://github.com/lovepxdro" target="_blank">GITHUB</a>
+    </div>
+    <div class="signature">// [sec-lounge] - 2026 //</div>
+  </footer>
 </body>
 </html>
