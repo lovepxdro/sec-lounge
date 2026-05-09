@@ -33,7 +33,7 @@ Ao todo foram **221.264 registros** com 77 features de fluxo de rede — coisas 
 
 Antes de qualquer modelo, fiz uma análise exploratória e plotei um PCA 2D dos dados:
 
-![Pasted image 20260508190631.png](/images/Pasted image 20260508190631.png)
+![Pasted image 20260508190631.png](/images/Pasted%20image%2020260508190631.png)
 
 Esse gráfico já revelou algo importante: existe um cluster de DDoS completamente separado à direita (fácil de detectar), mas também uma região à esquerda onde DDoS e tráfego benigno se misturam mais. É nessa região difícil que o experimento fica interessante.
 
@@ -58,7 +58,7 @@ Esse modelo virou o **baseline** da pesquisa. O objetivo a partir daqui é mostr
 
 ## Passo 2: O Atacante — e os problemas que apareceram
 
-Aqui começa a parte interessante (e honesta).
+Aqui começa a parte interessante.
 
 A primeira abordagem foi treinar um gerador clássico: uma rede que recebe ruído aleatório e tenta produzir vetores de features que o defensor classifique como benigno. O resultado foi... tecnicamente 100% de evasão desde a primeira epoch.
 
@@ -84,7 +84,7 @@ Com isso, o ciclo adversarial finalmente funcionou como esperado.
 
 Rodei 20 rodadas de co-evolução. Em cada rodada: o atacante tenta evadir, o defensor retreina com as novas amostras, medimos os dois.
 
-![Pasted image 20260508190755.png](/images/Pasted image 20260508190755.png)
+![Pasted image 20260508190755.png](/images/Pasted%20image%2020260508190755.png)
 
 | Rodada | Taxa de Evasão | Acurácia Defensor |
 |--------|---------------|-------------------|
@@ -125,4 +125,4 @@ O objetivo final é ter um framework modular que sirva como base para estudos fu
 
 - **Survey principal utilizado:** Alauthman et al. (2026). *Generative Adversarial Networks for Intrusion Detection Systems: A Comprehensive Survey of Applications, Challenges, and Research Directions.* Arabian Journal for Science and Engineering. [https://link.springer.com/article/10.1007/s13369-026-11103-6](https://link.springer.com/article/10.1007/s13369-026-11103-6)
 
-- **Dataset usado:** [https://www.kaggle.com/datasets/dhoogla/cicids2017?resource=download&select=DDoS-Friday-no-metadata.parquet](https://www.kaggle.com/datasets/dhoogla/cicids2017?resource=download&select=DDoS-Friday-no-metadata.parquet)
+- **Dataset utilizado:** [https://www.kaggle.com/datasets/dhoogla/cicids2017?resource=download&select=DDoS-Friday-no-metadata.parquet](https://www.kaggle.com/datasets/dhoogla/cicids2017?resource=download&select=DDoS-Friday-no-metadata.parquet)

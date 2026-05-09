@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Vazio - {{ SITENAME }}{% endblock %}
+
+{% block content %}
+  <div class="section-title">> STATUS: 404 NOT FOUND <</div>
+  
+  <article class="card" style="text-align: center;">
+    <p>
+        Nenhum registro encontrado neste diretório.<br>
+        ainda.
+    </p>
+</article>    
+    <img src="{{ SITEURL }}/images/vazio.gif" alt="Diretório Vazio" style="max-width: 250px; margin: 2rem auto; opacity: 0.7; border: none;">
+  </article>
+{% endblock %}

@@ -7,10 +7,10 @@ TIMEZONE = "America/Recife"
 DEFAULT_LANG = "pt-br"
 LOAD_CONTENT_CACHE = False
 
-STATIC_PATHS = ['images']
-EXTRA_PATH_METADATA = {
-    'images/favicon.svg': {'path': 'favicon.svg'}
-}
+STATIC_PATHS = ["images"]
+EXTRA_PATH_METADATA = {"images/favicon.svg": {"path": "favicon.svg"}}
+
+DIRECT_TEMPLATES = ["index", "categories", "authors", "archives", "404"]
 
 # URLs amigáveis
 ARTICLE_URL = "{category}/{slug}/"

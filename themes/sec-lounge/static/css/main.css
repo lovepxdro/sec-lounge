@@ -141,3 +141,11 @@ html {
 footer .prompt {
   color: var(--link-color);
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 4px;
+}

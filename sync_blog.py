@@ -28,10 +28,13 @@ def process_images(content, file_index):
             destino = os.path.join(IMAGES_DIR, img_nome)
             shutil.copy2(origem, destino)
 
+        # Trata espaços na URL do Markdown para não quebrar o parser
+        img_url = img_nome.replace(" ", "%20")
+
         content = content.replace(
-            f"![[{img_path}]]", f"![{img_nome}](/images/{img_nome})"
+            f"![[{img_path}]]", f"![{img_nome}](/images/{img_url})"
         )
-        content = content.replace(f"]({img_path})", f"](/images/{img_nome})")
+        content = content.replace(f"]({img_path})", f"](/images/{img_url})")
 
     return content
 
