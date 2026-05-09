@@ -32,9 +32,9 @@ def process_images(content, file_index):
         img_url = img_nome.replace(" ", "%20")
 
         content = content.replace(
-            f"![[{img_path}]]", f"![{img_nome}](/images/{img_url})"
+            f"![[{img_path}]]", f"![{img_nome}]({{static}}/images/{img_url})"
         )
-        content = content.replace(f"]({img_path})", f"](/images/{img_url})")
+        content = content.replace(f"]({img_path})", f"]({{static}}/images/{img_url})")
 
     return content
 

@@ -1,4 +1,4 @@
-Title: Experimento: Simulando Ataques DDoS com IA (e ensinando uma IA a se defender)
+Title: Simulando Ataques DDoS com IA (e ensinando uma IA a se defender)
 Date: 2026-05-07
 Category: experimentos
 Slug: experimento-inicial-ic
@@ -33,7 +33,7 @@ Ao todo foram **221.264 registros** com 77 features de fluxo de rede — coisas 
 
 Antes de qualquer modelo, fiz uma análise exploratória e plotei um PCA 2D dos dados:
 
-![Pasted image 20260508190631.png](/images/Pasted%20image%2020260508190631.png)
+![Pasted image 20260508190631.png]({static}/images/Pasted%20image%2020260508190631.png)
 
 Esse gráfico já revelou algo importante: existe um cluster de DDoS completamente separado à direita (fácil de detectar), mas também uma região à esquerda onde DDoS e tráfego benigno se misturam mais. É nessa região difícil que o experimento fica interessante.
 
@@ -84,7 +84,7 @@ Com isso, o ciclo adversarial finalmente funcionou como esperado.
 
 Rodei 20 rodadas de co-evolução. Em cada rodada: o atacante tenta evadir, o defensor retreina com as novas amostras, medimos os dois.
 
-![Pasted image 20260508190755.png](/images/Pasted%20image%2020260508190755.png)
+![Pasted image 20260508190755.png]({static}/images/Pasted%20image%2020260508190755.png)
 
 | Rodada | Taxa de Evasão | Acurácia Defensor |
 |--------|---------------|-------------------|
