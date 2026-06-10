@@ -14,19 +14,182 @@
       <a href="{{ SITEURL }}/">[ >_ HOME ]</a> |
       <a href="{{ SITEURL }}/category/writeups/">[ WRITEUPS ]</a> |
       <a href="{{ SITEURL }}/category/experimentos/">[ EXPERIMENTOS ]</a> |
-      <a href="{{ SITEURL }}/sobre/">[ SOBRE ]</a> |
-      <a href="https://github.com/lovepxdro/sec-lounge" target="_blank">[ REPOSITÓRIO ]</a>
+      <a href="{{ SITEURL }}/category/offtopic/">[ OFFTOPIC ]</a> |
+      <a href="{{ SITEURL }}/sobre/">[ SOBRE ]</a>
     </nav>
   </header>
   <main>
     {% block content %}{% endblock %}
   </main>
   <footer>
-    <div class="prompt">[sec-lounge@term:~]$</div>
-    <div class="links">
-      <a href="{{ SITEURL }}/sobre/">CONTATO</a> | <a href="https://github.com/lovepxdro" target="_blank">GITHUB</a>
+    <div class="terminal-area">
+      <div id="terminal-output"></div>
     </div>
-    <div class="signature">// [sec-lounge] - 2026 //</div>
+    <div class="footer-right">
+      <span class="signature">// [security_lounge] by pedro //</span>
+    </div>
+
+    <script>
+    (function () {
+      const output = document.getElementById('terminal-output');
+
+      let radioAudio = null;
+      let radioPlaying = false;
+      const RADIO_STREAM = 'https://streams.ilovemusic.de/iloveradio17.mp3';
+
+      function startRadio() {
+        if (!radioAudio) { radioAudio = new Audio(RADIO_STREAM); radioAudio.volume = 0.4; }
+        radioAudio.play().catch(() => null);
+        radioPlaying = true;
+      }
+      function stopRadio() {
+        if (radioAudio) { radioAudio.pause(); radioAudio.currentTime = 0; }
+        radioPlaying = false;
+      }
+
+      const COMMANDS = {
+        help: () => [
+          '<span class="t-ok">comandos disponíveis:</span>',
+          '  <span class="t-cmd">ls --notes</span>        notas em andamento',
+          '  <span class="t-cmd">cat wip.log</span>        detalhe das notas',
+          '  <span class="t-cmd">open --repo</span>        abre o repositório no GitHub',
+          '  <span class="t-cmd">radio --play</span>       inicia rádio lofi',
+          '  <span class="t-cmd">radio --stop</span>       para a rádio',
+          '  <span class="t-cmd">radio --status</span>     status da rádio',
+          '  <span class="t-cmd">whoami</span>             sobre o autor',
+          '  <span class="t-cmd">clear</span>              limpa o terminal',
+        ].join('\n'),
+
+        'ls --notes': () => [
+          '<span class="t-ok">~/vault/wip/</span>',
+          '  active-directory-enum.md      [em andamento]',
+          '  threat-intel-pipeline.md      [rascunho]',
+          '  splunk-blue-team-notes.md     [revisão]',
+          '  ctf-picoctf-2026.md           [em andamento]',
+        ].join('\n'),
+
+        'cat wip.log': () => [
+          '<span class="t-ok">── WIP LOG ──────────────────────────────</span>',
+          '<span class="t-label">active-directory-enum</span>',
+          '  Enumeração com BloodHound + kerberoasting.',
+          '  Falta: seção de mitigações e lab screenshots.',
+          '',
+          '<span class="t-label">threat-intel-pipeline</span>',
+          '  Coleta de IOCs automatizada.',
+          '  Falta: integração com MISP e testes de campo.',
+          '',
+          '<span class="t-label">ctf-picoctf-2026</span>',
+          '  Writeups de forensics e web.',
+          '  Falta: desafios de crypto.',
+          '<span class="t-ok">─────────────────────────────────────────</span>',
+        ].join('\n'),
+
+        'open --repo': () => {
+          window.open('https://github.com/lovepxdro/sec-lounge', '_blank');
+          return '<span class="t-ok">abrindo repositório...</span>';
+        },
+
+        'radio --play': () => {
+          if (radioPlaying) return '<span class="t-warn">rádio já está tocando.</span>';
+          startRadio();
+          return '<span class="t-ok">♫ lofi radio iniciada... volume: 40%</span>';
+        },
+
+        'radio --stop': () => {
+          if (!radioPlaying) return '<span class="t-warn">rádio não está tocando.</span>';
+          stopRadio();
+          return '<span class="t-ok">♫ rádio pausada.</span>';
+        },
+
+        'radio --status': () => radioPlaying
+          ? '<span class="t-ok">♫ status: tocando</span>'
+          : '<span class="t-warn">♫ status: parada</span>',
+
+        whoami: () => '<span class="t-ok">pedro</span> (aka pedro)',
+
+        clear: () => null,
+      };
+
+      function escapeHtml(s) {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      function printLine(html) {
+        html.split('\n').forEach(function(line) {
+          const div = document.createElement('div');
+          div.className = 't-line';
+          div.innerHTML = line;
+          output.appendChild(div);
+        });
+      }
+
+      let activePromptLine = null;
+      let activeInput = null;
+      const cmdHistory = [];
+      let histIdx = -1;
+
+      function handleKey(e) {
+        if (e.key === 'Enter') {
+          const cmd = activeInput.value.trim();
+          cmdHistory.unshift(activeInput.value);
+          histIdx = -1;
+
+          const frozen = document.createElement('div');
+          frozen.className = 't-line';
+          frozen.innerHTML =
+            '<span class="t-prompt">[security_lounge@term:~]$</span> ' +
+            escapeHtml(activeInput.value);
+          activePromptLine.replaceWith(frozen);
+          activePromptLine = null;
+          activeInput = null;
+
+          if (cmd === 'clear') {
+            output.innerHTML = '';
+          } else if (cmd) {
+            const result = COMMANDS[cmd]
+              ? COMMANDS[cmd]()
+              : '<span class="t-err">command not found: ' + escapeHtml(cmd) + ' — tente <span class="t-cmd">help</span></span>';
+            if (result) printLine(result);
+          }
+
+          createPromptLine();
+
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (histIdx < cmdHistory.length - 1) histIdx++;
+          activeInput.value = cmdHistory[histIdx] || '';
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          histIdx = histIdx > 0 ? histIdx - 1 : -1;
+          activeInput.value = histIdx >= 0 ? cmdHistory[histIdx] : '';
+        }
+      }
+
+      function createPromptLine() {
+        activePromptLine = document.createElement('div');
+        activePromptLine.className = 't-line terminal-input-line';
+        activePromptLine.innerHTML =
+          '<span class="t-prompt">[security_lounge@term:~]$</span> ';
+
+        activeInput = document.createElement('input');
+        activeInput.type = 'text';
+        activeInput.autocomplete = 'off';
+        activeInput.spellcheck = false;
+        activeInput.setAttribute('aria-label', 'terminal input');
+        activeInput.addEventListener('keydown', handleKey);
+
+        activePromptLine.appendChild(activeInput);
+        output.appendChild(activePromptLine);
+        activeInput.focus();
+      }
+
+      document.querySelector('footer').addEventListener('click', () => {
+        if (activeInput) activeInput.focus();
+      });
+
+      createPromptLine();
+    })();
+    </script>
   </footer>
 </body>
 </html>

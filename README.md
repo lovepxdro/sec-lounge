@@ -1,13 +1,13 @@
-# sec-lounge
+# security_lounge
 
-Blog estático voltado para anotações, writeups e pesquisas em cibersegurança. Desenvolvido com uma estética minimalista e deploy automatizado.
+Blog estático voltado para anotações, writeups e pesquisas em cibersegurança. Desenvolvido com estética minimalista e deploy automatizado.
 
 ## Stack Tecnológica
 
-- SSG: Pelican (Python)
-- Gestão de Conhecimento: Obsidian
-- Hospedagem & CI/CD: GitHub Pages + Actions
-- Design: Tema próprio (Dark Minimalist)
+- **SSG:** Pelican (Python)
+- **Gestão de Conhecimento:** Obsidian
+- **Hospedagem & CI/CD:** GitHub Pages + Actions
+- **Design:** Tema próprio (Dark Minimalist)
 
 ## Estrutura e Sincronização
 
@@ -19,8 +19,27 @@ O fluxo de publicações é integrado ao Obsidian. Apenas notas finalizadas são
 4. Realize o commit e push para a branch `main`.
 5. O GitHub Actions assume a pipeline, gerando os arquivos estáticos e publicando no Pages.
 
-## Foco de Conteúdo
+## Categorias
 
-- Writeups de CTFs e resolução de laboratórios (ex: pentest e análises de logs).
-- Registros de experimentos de pesquisa (ex: arquiteturas de defesa e machine learning).
-- Referências e conceitos de Blue Team e SOC.
+- **writeups** — CTFs e resolução de laboratórios (pentest, análise de logs, etc.)
+- **experimentos** — Registros de pesquisa (arquiteturas de defesa, machine learning, etc.)
+- **offtopic** — Discussões fora do radar técnico: setup, processo, referências e afins.
+
+## Terminal no Rodapé
+
+O rodapé do blog conta com um mini terminal interativo. Comandos disponíveis:
+
+| Comando | Descrição |
+|---|---|
+| `ls --notes` | Lista notas em andamento |
+| `cat wip.log` | Detalhe das notas WIP |
+| `open --repo` | Abre o repositório no GitHub |
+| `radio --play` | Inicia rádio lofi |
+| `radio --stop` | Para a rádio |
+| `radio --status` | Status da rádio |
+| `whoami` | Sobre o autor |
+| `clear` | Limpa o terminal |
+
+## Blue Team / SOC
+
+Referências e conceitos de Blue Team, SOC e segurança defensiva aparecem distribuídos entre writeups e experimentos.

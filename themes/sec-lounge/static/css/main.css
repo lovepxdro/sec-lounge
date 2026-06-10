@@ -108,11 +108,9 @@ footer {
   margin-top: 4rem;
   padding-top: 1.5rem;
   border-top: 1px dashed var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: 0.9rem;
   color: #768390;
+  display: block;
 }
 
 footer a {
@@ -148,4 +146,80 @@ img {
   display: block;
   margin: 1.5rem auto;
   border-radius: 4px;
+}
+
+/* ── Article header (sem título duplicado) ───────────────────────────── */
+.article-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.article-header .meta {
+  margin: 0;
+}
+
+/* ── Article header ─────────────────────────────────────────────────── */
+.article-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+.article-header .meta { margin: 0; }
+
+/* ── Rodapé ──────────────────────────────────────────────────────────── */
+footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--border-color);
+  font-size: 0.9rem;
+  color: #768390;
+  position: relative;
+}
+
+.terminal-area {
+  padding-right: 14rem;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.terminal-input-line input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  flex: 1;
+  caret-color: var(--link-color);
+}
+
+.footer-right {
+  position: absolute;
+  top: 1.5rem; /* mesmo valor do padding-top do footer */
+  right: 0;
+  white-space: nowrap;
+}
+
+.signature { color: #3d4451; font-size: 0.85rem; }
+
+#terminal-output {
+  margin-bottom: 0.4rem;
+}
+
+.t-line   { line-height: 1.7; font-size: 0.85rem; }
+.t-prompt { color: var(--link-color); }
+.t-ok     { color: var(--link-color); }
+.t-warn   { color: #f6c90e; }
+.t-err    { color: #ff5c5c; }
+.t-cmd    { color: #7dd3fc; }
+.t-label  { color: #c792ea; font-weight: bold; }
+
+@media (max-width: 600px) {
+  .terminal-area { padding-right: 0; }
+  .footer-right { position: static; margin-top: 1rem; }
 }

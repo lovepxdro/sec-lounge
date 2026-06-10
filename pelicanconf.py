@@ -1,5 +1,5 @@
 AUTHOR = "Pedro"
-SITENAME = "sec-lounge"
+SITENAME = "Security_Lounge"
 SITEURL = ""
 
 PATH = "content"
@@ -9,8 +9,6 @@ LOAD_CONTENT_CACHE = False
 
 STATIC_PATHS = ["images"]
 EXTRA_PATH_METADATA = {"images/favicon.svg": {"path": "favicon.svg"}}
-
-DIRECT_TEMPLATES = ["index", "categories", "authors", "archives", "404"]
 
 # URLs amigáveis
 ARTICLE_URL = "{category}/{slug}/"
@@ -24,4 +22,5 @@ CATEGORY_SAVE_AS = "category/{slug}/index.html"
 DISPLAY_CATEGORIES_ON_MENU = True
 DISPLAY_PAGES_ON_MENU = True
 DEFAULT_PAGINATION = 10
+
 THEME = "themes/sec-lounge"
