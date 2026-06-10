@@ -8,10 +8,12 @@ load_dotenv()
 OBSIDIAN_VAULT = os.getenv("VAULT_PATH") or ""
 CONTENT_DIR = "content"
 IMAGES_DIR = os.path.join(CONTENT_DIR, "images")
-WIP_FILE = "wip.txt"
+WIP_FILE = "content/wip.txt"
 
 if not OBSIDIAN_VAULT:
-    raise ValueError("VAULT_PATH não definido. Crie um arquivo .env com VAULT_PATH=/caminho/do/vault")
+    raise ValueError(
+        "VAULT_PATH não definido. Crie um arquivo .env com VAULT_PATH=/caminho/do/vault"
+    )
 
 
 def build_file_index():

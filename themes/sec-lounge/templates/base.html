@@ -61,7 +61,7 @@
         ].join('\n'),
 
         'ls --notes': () => {
-          fetch('/sec-lounge/wip.txt')
+          fetch('wip.txt')
             .then(r => {
               if (!r.ok) throw new Error();
               return r.text();
