@@ -36,6 +36,7 @@
       let radioAudio = null;
       let radioPlaying = false;
       const RADIO_STREAM = 'https://streams.ilovemusic.de/iloveradio17.mp3';
+      const RADIO_NAME = 'ilovemusic — lofi chill radio';
 
       function startRadio() {
         if (!radioAudio) { radioAudio = new Audio(RADIO_STREAM); radioAudio.volume = 0.4; }
@@ -51,7 +52,6 @@
         help: () => [
           '<span class="t-ok">comandos disponíveis:</span>',
           '  <span class="t-cmd">ls --notes</span>        notas em andamento',
-          '  <span class="t-cmd">cat wip.log</span>        detalhe das notas',
           '  <span class="t-cmd">open --repo</span>        abre o repositório no GitHub',
           '  <span class="t-cmd">radio --play</span>       inicia rádio lofi',
           '  <span class="t-cmd">radio --stop</span>       para a rádio',
@@ -60,29 +60,32 @@
           '  <span class="t-cmd">clear</span>              limpa o terminal',
         ].join('\n'),
 
-        'ls --notes': () => [
-          '<span class="t-ok">~/vault/wip/</span>',
-          '  active-directory-enum.md      [em andamento]',
-          '  threat-intel-pipeline.md      [rascunho]',
-          '  splunk-blue-team-notes.md     [revisão]',
-          '  ctf-picoctf-2026.md           [em andamento]',
-        ].join('\n'),
-
-        'cat wip.log': () => [
-          '<span class="t-ok">── WIP LOG ──────────────────────────────</span>',
-          '<span class="t-label">active-directory-enum</span>',
-          '  Enumeração com BloodHound + kerberoasting.',
-          '  Falta: seção de mitigações e lab screenshots.',
-          '',
-          '<span class="t-label">threat-intel-pipeline</span>',
-          '  Coleta de IOCs automatizada.',
-          '  Falta: integração com MISP e testes de campo.',
-          '',
-          '<span class="t-label">ctf-picoctf-2026</span>',
-          '  Writeups de forensics e web.',
-          '  Falta: desafios de crypto.',
-          '<span class="t-ok">─────────────────────────────────────────</span>',
-        ].join('\n'),
+        'ls --notes': () => {
+          fetch('/sec-lounge/wip.txt')
+            .then(r => {
+              if (!r.ok) throw new Error();
+              return r.text();
+            })
+            .then(text => {
+              const lines = text.split('\n').filter(l => l.trim());
+              const div = document.createElement('div');
+              div.className = 't-line';
+              if (lines.length === 0) {
+                div.innerHTML = '<span class="t-warn">nenhuma nota em andamento no momento.</span>';
+              } else {
+                div.innerHTML = '<span class="t-ok">~/vault/wip/</span>\n' +
+                  lines.map(l => '  ' + escapeHtml(l)).join('\n');
+              }
+              output.insertBefore(div, activePromptLine);
+            })
+            .catch(() => {
+              const div = document.createElement('div');
+              div.className = 't-line';
+              div.innerHTML = '<span class="t-err">erro ao ler wip.txt</span>';
+              output.insertBefore(div, activePromptLine);
+            });
+          return null;
+        },
 
         'open --repo': () => {
           window.open('https://github.com/lovepxdro/sec-lounge', '_blank');
@@ -92,7 +95,7 @@
         'radio --play': () => {
           if (radioPlaying) return '<span class="t-warn">rádio já está tocando.</span>';
           startRadio();
-          return '<span class="t-ok">♫ lofi radio iniciada... volume: 40%</span>';
+          return '<span class="t-ok">♫ ' + RADIO_NAME + '</span>';
         },
 
         'radio --stop': () => {
@@ -102,10 +105,17 @@
         },
 
         'radio --status': () => radioPlaying
-          ? '<span class="t-ok">♫ status: tocando</span>'
-          : '<span class="t-warn">♫ status: parada</span>',
+          ? '<span class="t-ok">♫ tocando — ' + RADIO_NAME + '</span>'
+          : '<span class="t-warn">♫ parada.</span>',
 
         whoami: () => '<span class="t-ok">pedro</span> (aka pedro)',
+
+        'cat.sh': () => [
+          '<span class="t-ok"> /\\_/\\  </span>',
+          '<span class="t-ok">( o.o ) </span>',
+          '<span class="t-ok"> > ^ <  </span>',
+          '<span class="t-label"> meow  </span>',
+        ].join('\n'),
 
         clear: () => null,
       };
@@ -153,6 +163,7 @@
           }
 
           createPromptLine();
+          activeInput.focus();
 
         } else if (e.key === 'ArrowUp') {
           e.preventDefault();
@@ -180,7 +191,6 @@
 
         activePromptLine.appendChild(activeInput);
         output.appendChild(activePromptLine);
-        // activeInput.focus();
       }
 
       document.querySelector('footer').addEventListener('click', () => {

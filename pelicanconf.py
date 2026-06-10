@@ -7,7 +7,7 @@ TIMEZONE = "America/Recife"
 DEFAULT_LANG = "pt-br"
 LOAD_CONTENT_CACHE = False
 
-STATIC_PATHS = ["images"]
+STATIC_PATHS = ["images", "wip.txt"]
 EXTRA_PATH_METADATA = {"images/favicon.svg": {"path": "favicon.svg"}}
 
 # URLs amigáveis

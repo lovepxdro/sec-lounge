@@ -16,3 +16,4 @@ rich==15.0.0
 six==1.17.0
 Unidecode==1.4.0
 watchfiles==1.1.1
+python-dotenv==1.0.1
