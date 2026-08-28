@@ -1,17 +1,57 @@
 {% extends "base.html" %}
+{% set nav_active = "home" %}
 
 {% block content %}
-  <div class="section-title">> ÚLTIMOS REGISTROS <</div>
-  
-  {% for article in articles %}
-    <article class="card">
-      <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
-      <div class="meta">
-        {{ article.locale_date }} | <span>#{{ article.category }}</span>
-      </div>
-      <div class="summary">
-        {{ article.summary | striptags | truncate(150) }}
-      </div>
-    </article>
-  {% endfor %}
+  {% set latest = articles[:9] %}
+
+  <div class="section-header">
+    <h2 class="section-title">&gt;_ ÚLTIMOS {{ latest | length }} REGISTROS</h2>
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input type="search" id="post-search" placeholder="buscar posts..." autocomplete="off" aria-label="Buscar posts">
+    </div>
+  </div>
+
+  <div class="posts-grid" id="posts-grid">
+    {% for article in latest %}
+      <article class="post-card" data-title="{{ article.title | lower }}">
+        <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
+        <div class="meta">
+          {{ article.date | data_abreviada }} &bull; {{ article.content | tempo_leitura }} MIN &bull; {{ article.category | upper }}
+        </div>
+        <div class="summary">
+          {{ article.summary | striptags | truncate(110) }}
+        </div>
+        <a class="read-more" href="{{ SITEURL }}/{{ article.url }}">LER MAIS</a>
+      </article>
+    {% endfor %}
+
+    <a class="view-all-card" href="{{ SITEURL }}/arquivo/">
+      <span class="icon">&#9638;</span>
+      <span>VER TODOS</span>
+      <span class="hint">&rarr;</span>
+    </a>
+  </div>
+
+  <p id="search-empty" class="search-empty" hidden>Nenhum post encontrado.</p>
+
+  <script>
+  (function () {
+    var input = document.getElementById('post-search');
+    var cards = Array.prototype.slice.call(document.querySelectorAll('#posts-grid .post-card'));
+    var empty = document.getElementById('search-empty');
+    if (!input) return;
+
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      var visible = 0;
+      cards.forEach(function (card) {
+        var match = !q || card.dataset.title.indexOf(q) !== -1;
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+      if (empty) empty.hidden = !(q && visible === 0);
+    });
+  })();
+  </script>
 {% endblock %}

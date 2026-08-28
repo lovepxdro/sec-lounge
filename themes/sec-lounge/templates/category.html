@@ -1,19 +1,30 @@
 {% extends "base.html" %}
+{% set nav_active = category.slug %}
 
 {% block title %}Categoria: {{ category }} - {{ SITENAME }}{% endblock %}
 
 {% block content %}
-  <div class="section-title">> CATEGORIA: {{ category | upper }} <</div>
-  
-  {% for article in articles %}
-    <article class="card">
-      <h3><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h3>
-      <div class="meta">
-        {{ article.locale_date }} | <span>#{{ article.category }}</span>
-      </div>
-      <div class="summary">
-        {{ article.summary | striptags | truncate(150) }}
-      </div>
-    </article>
-  {% endfor %}
+  <div class="category-page">
+
+    <div class="section-title category-title">> CATEGORIA: {{ category | upper }} <</div>
+
+    {% for article in articles %}
+      <article class="card">
+        <h3>
+          <a href="{{ SITEURL }}/{{ article.url }}">
+            {{ article.title }}
+          </a>
+        </h3>
+
+        <div class="meta">
+          {{ article.locale_date }} | <span>#{{ article.category }}</span>
+        </div>
+
+        <div class="summary">
+          {{ article.summary | striptags | truncate(150) }}
+        </div>
+      </article>
+    {% endfor %}
+
+  </div>
 {% endblock %}

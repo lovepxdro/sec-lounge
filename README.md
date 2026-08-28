@@ -1,15 +1,16 @@
-# security_lounge
+# Security_Lounge
 
-Blog estático voltado para anotações, writeups e pesquisas em cibersegurança. Desenvolvido com estética minimalista e deploy automatizado.
+Blog estático voltado para writeups, pesquisas e discussões em cibersegurança. Desenvolvido com estética minimalista e deploy automatizado.
 
-## Stack Tecnológica
+## Stack
 
 - **SSG:** Pelican (Python)
-- **Gestão de Conhecimento:** Obsidian
+- **Templates:** Jinja2
+- **Gestão de escrita:** Obsidian (.md)
 - **Hospedagem & CI/CD:** GitHub Pages + Actions
-- **Design:** Tema próprio (Dark Minimalist)
+- **Design:** Tema próprio (dark-minimalist)
 
-## Estrutura e Sincronização
+## Sincronização
 
 O fluxo de publicações é integrado ao Obsidian. Apenas notas finalizadas são enviadas ao blog.
 
@@ -19,11 +20,28 @@ O fluxo de publicações é integrado ao Obsidian. Apenas notas finalizadas são
 4. Realize o commit e push para a branch `main`.
 5. O GitHub Actions assume a pipeline, gerando os arquivos estáticos e publicando no Pages.
 
+### YAML
+
+---
+Title: Título do post
+Date: 2026-08-28
+Category: experimentos
+Slug: titulo-do-post
+status: published
+---
+
+### Status disponíveis
+
+- **published:** Nota concluída, pronta para ser publicada.
+- **wip:** Nota em desenvolvimento, o script não publica, mas registra em wip.txt.
+
+> Futura melhoria: Abandonar o **status** no YAML e criar uma organização física (VAULT_PATH) que represente cada um.
+
 ## Categorias
 
-- **writeups** — CTFs e resolução de laboratórios (pentest, análise de logs, etc.)
-- **experimentos** — Registros de pesquisa (arquiteturas de defesa, machine learning, etc.)
-- **offtopic** — Discussões fora do radar técnico: setup, processo, referências e afins.
+- **writeups** — Resolução de desafios relacionados a segurança.
+- **experimentos** — Registro de pesquisas e desenvolvimento de projetos.
+- **offtopic** — Discussões fora do radar técnico.
 
 ## Terminal no Rodapé
 
@@ -32,7 +50,6 @@ O rodapé do blog conta com um mini terminal interativo. Comandos disponíveis:
 | Comando | Descrição |
 |---|---|
 | `ls --notes` | Lista notas em andamento |
-| `cat wip.log` | Detalhe das notas WIP |
 | `open --repo` | Abre o repositório no GitHub |
 | `radio --play` | Inicia rádio lofi |
 | `radio --stop` | Para a rádio |
@@ -40,6 +57,10 @@ O rodapé do blog conta com um mini terminal interativo. Comandos disponíveis:
 | `whoami` | Sobre o autor |
 | `clear` | Limpa o terminal |
 
-## Blue Team / SOC
+## Futuras melhorias
 
-Referências e conceitos de Blue Team, SOC e segurança defensiva aparecem distribuídos entre writeups e experimentos.
+1. Sistema de tags para organização lógica.
+3. Criar um .env.example.
+4. Revisar código, estrutura e fluxo de publicação.
+5. Adicionar logs de edições nos posts.
+6. Melhorar visualização/leitura dos posts.

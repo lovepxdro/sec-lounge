@@ -8,25 +8,29 @@
   <link rel="icon" href="{{ SITEURL }}/favicon.svg" type="image/svg+xml">
 </head>
 <body>
-  <header>
-    <h1><a href="{{ SITEURL }}/">{{ SITENAME }}</a></h1>
-    <nav>
-      <a href="{{ SITEURL }}/">[ >_ HOME ]</a> |
-      <a href="{{ SITEURL }}/category/writeups/">[ WRITEUPS ]</a> |
-      <a href="{{ SITEURL }}/category/experimentos/">[ EXPERIMENTOS ]</a> |
-      <a href="{{ SITEURL }}/category/offtopic/">[ OFFTOPIC ]</a> |
-      <a href="{{ SITEURL }}/sobre/">[ SOBRE ]</a>
-    </nav>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="{{ SITEURL }}/" class="logo">{{ SITENAME }}</a>
+      <nav>
+        <a href="{{ SITEURL }}/" class="nav-link{% if nav_active == 'home' %} active{% endif %}">HOME</a>
+        <a href="{{ SITEURL }}/category/writeups/" class="nav-link{% if nav_active == 'writeups' %} active{% endif %}">WRITEUPS</a>
+        <a href="{{ SITEURL }}/category/experimentos/" class="nav-link{% if nav_active == 'experimentos' %} active{% endif %}">EXPERIMENTOS</a>
+        <a href="{{ SITEURL }}/category/offtopic/" class="nav-link{% if nav_active == 'offtopic' %} active{% endif %}">OFFTOPIC</a>
+        <a href="{{ SITEURL }}/sobre/" class="nav-link{% if nav_active == 'sobre' %} active{% endif %}">SOBRE</a>
+      </nav>
+    </div>
   </header>
-  <main>
+  <main class="container">
     {% block content %}{% endblock %}
   </main>
   <footer>
+    <div class="container footer-inner">
     <div class="terminal-area">
       <div id="terminal-output"></div>
     </div>
     <div class="footer-right">
       <span class="signature">// [security_lounge] by pedro //</span>
+    </div>
     </div>
 
     <script>
@@ -200,6 +204,7 @@
       createPromptLine();
     })();
     </script>
+    </div>
   </footer>
 </body>
 </html>

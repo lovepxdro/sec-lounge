@@ -1,14 +1,22 @@
 {% extends "base.html" %}
+{% set nav_active = article.category.slug %}
 
 {% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
 
 {% block content %}
-  <article>
-    <header class="article-header">
-      <p class="meta"><time>{{ article.locale_date }}</time> | <span>#{{ article.category }}</span></p>
-    </header>
-    <div class="content">
-      {{ article.content }}
-    </div>
-  </article>
+<article class="article-page">
+
+  <header class="article-header">
+    <p class="meta">
+      <time>{{ article.locale_date }}</time>
+      |
+      <span>#{{ article.category }}</span>
+    </p>
+  </header>
+
+  <div class="article-content">
+    {{ article.content }}
+  </div>
+
+</article>
 {% endblock %}
